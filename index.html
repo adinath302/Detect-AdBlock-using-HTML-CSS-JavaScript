@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detect AdBlock using JavaScript </title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div id="detect"></div>
+  <div class="wrapper">
+    <div class="content">
+      <div class="warn-icon">
+        <span class="icon"><i class="fas fa-exclamation"></i></span>
+      </div>
+      <h2>AdBlock Detected!</h2>
+      <p>Our website is made possible by displaying ads to our visitors. Please supporting us by whitelisting our website.</p>
+      <div class="btn">
+        <div class="bg-layer"></div>
+        <button>Okay, I'll Whitelist</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const detect = document.querySelector("#detect");
+    const wrapper = document.querySelector(".wrapper");
+    const button = wrapper.querySelector("button");
+  
+    // Function to check if any of the ad classes are blocked
+    function isAdBlocked() {
+      let blocked = false;
+      for(let item of adClasses){
+        if (detect.classList.contains(item)) {
+          blocked = true;
+          break;
+        }
+      }
+      return blocked;
+    }
+  
+    // Initially add classes to detect ad blocking
+    let adClasses = ["ad", "ads", "adsbox", "doubleclick", "ad-placement", "ad-placeholder", "adbadge", "BannerAd"];
+    for(let item of adClasses){
+      detect.classList.add(item);
+    }
+  
+    // Check if ad is blocked after a slight delay
+    setTimeout(() => {
+      if (isAdBlocked()) {
+        wrapper.classList.add("show");
+      }
+    }, 1000);
+  
+    // Button event listener
+    button.addEventListener("click", () => {
+      wrapper.classList.remove("show");
+    });
+  </script>
+  
+
+</body>
+</html>
